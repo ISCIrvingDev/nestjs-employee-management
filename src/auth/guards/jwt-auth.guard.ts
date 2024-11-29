@@ -1,7 +1,7 @@
 import {
   Injectable,
   ExecutionContext,
-  // UnauthorizedException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -14,19 +14,20 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   }
 
   // Personaliza la respuesta si hay un error o si el usuario no es válido
-  // handleRequest(err: any, user: any /*, info: any*/) {
-  //   if (err || !user) {
-  //     throw err || new UnauthorizedException('Usuario no autorizado');
-  //   }
+  handleRequest(err: any, user: any /*, info: any*/) {
+    if (err || !user) {
+      throw err || new UnauthorizedException('Usuario no autorizado');
+    }
 
-  //   return user;
-  // }
-  handleRequest(
-    ...args: Parameters<
-      InstanceType<ReturnType<typeof AuthGuard>>['handleRequest']
-    >
-  ) {
-    console.log('los args son: ', args);
-    return super.handleRequest(...args);
+    return user;
   }
+  // Log a los argumentos para ver si hay un error
+  // handleRequest(
+  //   ...args: Parameters<
+  //     InstanceType<ReturnType<typeof AuthGuard>>['handleRequest']
+  //   >
+  // ) {
+  //   console.log('los args son: ', args);
+  //   return super.handleRequest(...args);
+  // }
 }
