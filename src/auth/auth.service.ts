@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserLoginDto, UserRefreshJwtDto } from './dtos/user.dto';
-import { UserEntity } from './entity/user.entity';
+import { UserEntity } from './entity/user-entity'; // Se tuvo que realizar el cambio para evitar que el CLI de TypeORM lo vea como una entidad
 import { JwtTokensModel, UserJwtModel } from './models/user.model';
 
 @Injectable()
