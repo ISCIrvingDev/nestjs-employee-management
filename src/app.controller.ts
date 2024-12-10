@@ -34,9 +34,9 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('auth-check')
   @ApiBearerAuth() // Es para hacerle saber a Swagger que este endpoint requiere de autenticacion. Se puede agregar a nivel de endpoint o a nivel de Controller
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Check the healt status with authentication',
   })
