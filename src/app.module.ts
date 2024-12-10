@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { employeeManagementDataSource } from './application/db/employee-management-db/datasource';
 import { EmployeeModule } from './employee/employee.module';
 import { EmployeeRoleModule } from './employee-role/employee-role.module';
-import { DeparmentModule } from './deparment/deparment.module';
+import { DepartmentModule } from './deparment/deparment.module';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { DeparmentModule } from './deparment/deparment.module';
     AuthModule,
     EmployeeModule,
     EmployeeRoleModule,
-    DeparmentModule,
+    DepartmentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

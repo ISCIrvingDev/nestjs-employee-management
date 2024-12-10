@@ -64,7 +64,7 @@ export class CEmployee {
   departure_date: Date | null;
 
   @ManyToOne(() => CDepartment, { nullable: false })
-  @JoinColumn({ name: 'id_c_deparment' })
+  @JoinColumn({ name: 'id_c_department' })
   department: CDepartment;
 
   @ManyToMany(() => CEmployeeRole, { cascade: true })
