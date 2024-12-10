@@ -4,9 +4,13 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  Unique,
 } from 'typeorm';
 
 @Entity('c_departments')
+@Unique(['active', 'key']) // Restricción de unicidad compuesta
+@Unique(['active', 'name']) // Restricción de unicidad compuesta
+@Unique(['active', 'key', 'name']) // Restricción de unicidad compuesta
 export class CDepartment {
   @PrimaryGeneratedColumn()
   id: number;
@@ -26,10 +30,10 @@ export class CDepartment {
   })
   updated_at: Date;
 
-  @Column({ type: 'varchar', length: 5, nullable: false })
+  @Column({ type: 'varchar', length: 5, nullable: false, unique: true }) // Unicidad individual
   key: string;
 
-  @Column({ type: 'varchar', length: 100, nullable: false })
+  @Column({ type: 'varchar', length: 100, nullable: false, unique: true }) // Unicidad individual
   name: string;
 
   @Column({ type: 'varchar', length: 500, nullable: true })
