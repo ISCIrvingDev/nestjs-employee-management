@@ -8,7 +8,7 @@ const password = process.env.EMPLOYEE_MANAGEMENT_DB_PASSWORD;
 const database = process.env.EMPLOYEE_MANAGEMENT_DB_DATABASE;
 
 // Solamente para verificar los datos en desarrollo
-console.log('\x1b[42m Employee Management Data Source \x1b[42m%s\x1b[0m');
+console.log('\x1b[42m Employee Management Data Source \x1b[42m\x1b[0m');
 // console.log('\x1b[32m Host: \x1b[32m', host);
 // console.log('\x1b[32m Type: \x1b[32m', type);
 // console.log('\x1b[32m Port: \x1b[32m', port);

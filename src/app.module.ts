@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -8,6 +8,7 @@ import { employeeManagementDataSource } from './application/db/employee-manageme
 import { EmployeeModule } from './employee/employee.module';
 import { EmployeeRoleModule } from './employee-role/employee-role.module';
 import { DepartmentModule } from './deparment/deparment.module';
+import { LoggerMiddleware } from './application/middlewares/logs/Logger.middleware';
 
 @Module({
   imports: [
@@ -21,4 +22,8 @@ import { DepartmentModule } from './deparment/deparment.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*'); // Middleware para todas las rutas
+  }
+}
