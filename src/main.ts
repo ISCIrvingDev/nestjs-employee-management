@@ -5,9 +5,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const port = process.env.PORT ?? 3000;
-
   const env = process.env.NODE_ENV;
   console.log(`Ambiente: "${env}"`);
+
+  app.setGlobalPrefix('api');
 
   if (env == 'development') {
     // Swagger
