@@ -1,28 +1,21 @@
 import {
   Controller,
   Get /*, HttpException, Res*/,
-  HttpException,
   HttpStatus,
-  UseFilters,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import {
+  ApiBadRequestResponse,
   ApiBearerAuth,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiOperation,
   ApiResponse,
+  // ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { ResponseInterceptor } from './application/interceptos/response.interceptor';
-import {
-  AppErrorResponseModel,
-  AppResponseModel,
-} from './application/models/app-response.model';
-import { ResponseFilter } from './application/filters/response.filter';
 // import { Response } from 'express';
 
 @ApiTags('Root')
@@ -38,19 +31,24 @@ export class AppController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'A string saying "Hello World!"',
-    type: AppResponseModel<string>,
+    type: String,
+    example: 'Hello World!',
   })
+  // @ApiOkResponse({
+  //   description: 'A string saying "Hello World!"',
+  //   type: String,
+  // })
   @ApiInternalServerErrorResponse({
-    description: '',
-    type: AppResponseModel<AppErrorResponseModel>,
+    description: 'If something went wrong in the server',
+    type: String,
   })
-  @UseInterceptors(ResponseInterceptor)
-  @UseFilters(ResponseFilter)
+  @ApiBadRequestResponse({ description: 'If the request was invalid' })
   getHello(): string {
-    throw new HttpException(
-      'Forbidden resource',
-      HttpStatus.INTERNAL_SERVER_ERROR,
-    );
+    // Prueba en caso de error
+    // throw new HttpException(
+    //   'Forbidden resource',
+    //   HttpStatus.INTERNAL_SERVER_ERROR,
+    // );
     return this.appService.getHello();
   }
 
@@ -63,19 +61,9 @@ export class AppController {
   @ApiOkResponse({
     description: 'A string saying "Hello World with Auth Guard!"',
     type: String,
+    example: 'Hello World with Auth Guard!',
   })
   getHelloAuthCheck(/*@Res() res: Response*/): string {
     return this.appService.getHelloAuthCheck();
-    // try {
-    //   return this.appService.getHelloAuthCheck();
-    // } catch (error) {
-    //   res
-    //     .status(error instanceof HttpException ? error.getStatus() : 500)
-    //     .json({
-    //       name: error.name,
-    //       message: error.message,
-    //       stack: error.stack,
-    //     } as Error);
-    // }
   }
 }
