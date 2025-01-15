@@ -14,7 +14,7 @@ export class AppResponseModel<T> {
 
   @ApiProperty({
     description: 'The retrieved data during the operation',
-    type: Object,
+    // type: Object,
     required: true,
   })
   public data: T | AppErrorResponseModel;
@@ -56,6 +56,22 @@ export class AppErrorResponseModel {
     required: true,
   })
   public message: string;
+
+  @ApiProperty({
+    description: 'The error name of the operation',
+    type: String,
+    example: 'Invalid request!',
+    required: true,
+  })
+  public name: string;
+
+  @ApiProperty({
+    description: 'The error stack of the operation',
+    type: String,
+    example: 'Invalid request!',
+    required: true,
+  })
+  public stack: string;
 
   constructor(init?: Partial<AppErrorResponseModel>) {
     Object.assign(this, init);

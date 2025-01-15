@@ -22,9 +22,11 @@ export class ResponseFilter implements ExceptionFilter {
       success: false,
       data: {
         statusCode: status,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toString(), //.toISOString(),
         path: request.url,
         message: exception.message,
+        name: exception.name,
+        stack: exception.stack,
       },
     };
 
