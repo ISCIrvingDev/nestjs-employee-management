@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  // HttpException,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CDepartment } from 'src/application/db/employee-management-db/entities/c-department.entity';
 import { Repository } from 'typeorm';
@@ -16,6 +20,9 @@ export class DepartmentService {
   ) {}
 
   async getAllDepartments(): Promise<GetDepartmentDto[]> {
+    // Prueba de funcionalidad del "Filter" "ResponseFilter"
+    // throw new HttpException('Forbidden resource', 555);
+
     const allDepartments = await this._departmentRepository.find({
       where: {
         active: true,
