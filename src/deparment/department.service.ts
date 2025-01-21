@@ -53,6 +53,13 @@ export class DepartmentService {
       },
     });
 
+    // Data validation
+    if (!department) {
+      throw new BadRequestException(
+        `There is no active data with the ID: ${id}`,
+      );
+    }
+
     // Mapping the response
     const res = {
       id: department.id,
@@ -97,8 +104,11 @@ export class DepartmentService {
       newDepartmentDto,
     );
 
+    // Data validation
     if (!(oldDepartment.affected && oldDepartment.affected > 0)) {
-      throw new BadRequestException('There was no affected rows!');
+      throw new BadRequestException(
+        `There was no data to be updated with the ID: ${id}`,
+      );
     }
 
     const newDepartment = await this._departmentRepository.findOne({
@@ -127,8 +137,9 @@ export class DepartmentService {
      */
     // const department = await this._departmentRepository.delete(id);
 
+    // Data validation
     // if (!(department.affected && department.affected > 0)) {
-    //   throw new BadRequestException('There was no affected rows!');
+    //   throw new BadRequestException(`There was no data to be deleted with the ID: ${id}`);
     // }
 
     /*
@@ -144,8 +155,11 @@ export class DepartmentService {
       newValues,
     );
 
+    // Data validation
     if (!(oldDepartment.affected && oldDepartment.affected > 0)) {
-      throw new BadRequestException('There was no affected rows!');
+      throw new BadRequestException(
+        `There was no data to be deleted with the ID: ${id}`,
+      );
     }
 
     const newDepartment = await this._departmentRepository.findOne({
