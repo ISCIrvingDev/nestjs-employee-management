@@ -29,7 +29,8 @@ import { AppErrorResponseModel } from 'src/application/models/app-response.model
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { EmployeeService } from './employee.service';
 import {
-  EmployeeDepartment,
+  EmployeeDepartmentDto,
+  EmployeeRoleDto,
   GetEmployeeDto,
   NewEmployeeDto,
 } from './dtos/employee.dto';
@@ -111,13 +112,13 @@ export class EmployeeController {
             id: 1,
             key: 'A0001',
             name: 'Pharmacy',
-          } as EmployeeDepartment,
+          } as EmployeeDepartmentDto,
           roles: [
             {
               id: 1,
               key: 'R0001',
               name: 'Chief Technology Officer',
-            },
+            } as EmployeeRoleDto,
           ],
         } as NewEmployeeDto,
       },
@@ -127,7 +128,7 @@ export class EmployeeController {
     description: 'The new employee',
     type: GetEmployeeDto,
   })
-  // @UsePipes(NewEmployeePipe)
+  // @UsePipes(NewEmployeePipe) // Aqui me quede -> Agregar el Pipe y las validaciones del lado del DTO
   async createEmployee(
     @Body() newEmployeeDto: NewEmployeeDto,
   ): Promise<GetEmployeeDto> {

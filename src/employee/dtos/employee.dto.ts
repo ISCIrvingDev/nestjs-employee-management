@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 //   @IsString()
 //   @Length(13, 13)
 
-export class EmployeeDepartment {
+export class EmployeeDepartmentDto {
   @ApiProperty({
     description: 'The ID of the department (ID of the database)',
     type: Number,
@@ -26,7 +26,7 @@ export class EmployeeDepartment {
   name: string;
 }
 
-export class EmployeeRole {
+export class EmployeeRoleDto {
   @ApiProperty({
     description: 'The ID of the department (ID of the database)',
     type: Number,
@@ -152,27 +152,28 @@ export class GetEmployeeDto {
 
   @ApiProperty({
     description: 'The main department data of the employee',
-    type: EmployeeDepartment,
+    // type: () => EmployeeDepartmentDto, // Esta es la version "lazy"
+    type: EmployeeDepartmentDto,
     example: {
       id: 1,
       key: 'A0001',
       name: 'Pharmacy',
-    } as EmployeeDepartment,
+    } as EmployeeDepartmentDto,
   })
-  department: EmployeeDepartment;
+  department: EmployeeDepartmentDto;
 
   @ApiProperty({
     description: 'The roles main data of the employee',
-    type: EmployeeRole,
+    type: [EmployeeRoleDto],
     example: [
       {
         id: 1,
         key: 'R0001',
         name: 'Chief Technology Officer',
-      } as EmployeeRole,
+      } as EmployeeRoleDto,
     ],
   })
-  roles: [EmployeeRole];
+  roles: [EmployeeRoleDto];
 }
 
 export class NewEmployeeDto {
@@ -259,27 +260,27 @@ export class NewEmployeeDto {
 
   @ApiProperty({
     description: 'The main department data of the employee',
-    type: EmployeeDepartment,
+    type: EmployeeDepartmentDto,
     example: {
       id: 1,
       key: 'A0001',
       name: 'Pharmacy',
-    } as EmployeeDepartment,
+    } as EmployeeDepartmentDto,
   })
-  department: EmployeeDepartment;
+  department: EmployeeDepartmentDto;
 
   @ApiProperty({
     description: 'The roles main data of the employee',
-    type: EmployeeRole,
+    type: [EmployeeRoleDto],
     example: [
       {
         id: 1,
         key: 'R0001',
         name: 'Chief Technology Officer',
-      } as EmployeeRole,
+      } as EmployeeRoleDto,
     ],
   })
-  roles: [EmployeeRole];
+  roles: [EmployeeRoleDto];
 }
 /*
 export class GetDeletedEmployeeRoleDto {
