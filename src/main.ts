@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -32,9 +33,14 @@ async function bootstrap() {
     console.log(
       `API Documentation -> at http://localhost:${port}/api-documentation`,
     );
+    console.log(
+      `API Documentation JSON -> at http://localhost:${port}/swagger-json`,
+    );
   } /* else if (env == 'production') {
     // do something
   }*/
+
+  app.useGlobalPipes(new ValidationPipe()); // Habilita la validacion global de los DTOs
 
   await app.listen(port);
 
