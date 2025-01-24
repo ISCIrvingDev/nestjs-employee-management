@@ -49,13 +49,13 @@ export class AppErrorResponseModel {
   })
   public path: string;
 
-  @ApiProperty({
-    description: 'The error message of the operation',
-    type: String,
-    example: 'Invalid request!',
-    required: true,
-  })
-  public message: string;
+  // @ApiProperty({
+  //   description: 'The error message of the operation',
+  //   type: String,
+  //   example: 'Invalid request!',
+  //   required: true,
+  // })
+  // public message: string;
 
   @ApiProperty({
     description: 'The error name of the operation',
@@ -72,6 +72,39 @@ export class AppErrorResponseModel {
     required: true,
   })
   public stack: string;
+
+  // @ApiProperty({
+  //   description: 'The error response message of the operation',
+  //   // type: String | [String], // Esta opcion no es valida asi que se usa el "oneOf"
+  //   oneOf: [
+  //     { type: 'string' },
+  //     {
+  //       type: 'array',
+  //       items: {
+  //         type: 'string',
+  //       },
+  //     },
+  //   ],
+  //   example: 'Invalid request!',
+  //   required: true,
+  // })
+  // public responseMessage: string | [string];
+
+  @ApiProperty({
+    description: 'The error message of the operation',
+    oneOf: [
+      { type: 'string' },
+      {
+        type: 'array',
+        items: {
+          type: 'string',
+        },
+      },
+    ],
+    example: 'Invalid request!',
+    required: true,
+  })
+  public message: string | [string];
 
   constructor(init?: Partial<AppErrorResponseModel>) {
     Object.assign(this, init);

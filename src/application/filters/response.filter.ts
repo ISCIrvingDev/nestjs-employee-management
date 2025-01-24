@@ -17,6 +17,7 @@ export class ResponseFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const status = exception.getStatus();
+    const responseMessage = (exception.getResponse() as any).message;
 
     const res: AppResponseModel<AppErrorResponseModel> = {
       success: false,
@@ -24,9 +25,11 @@ export class ResponseFilter implements ExceptionFilter {
         statusCode: status,
         timestamp: new Date().toString(), //.toISOString(),
         path: request.url,
-        message: exception.message,
+        // message: exception.message,
+        message: responseMessage,
         name: exception.name,
         stack: exception.stack,
+        // responseMessage: responseMessage,
       },
     };
 
