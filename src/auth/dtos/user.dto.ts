@@ -4,7 +4,7 @@ export class UserLoginDto {
   @ApiProperty({
     description: 'The name of the user',
     type: String,
-    example: 'Irving',
+    example: 'Your username',
   })
   username: string;
 
@@ -16,6 +16,7 @@ export class UserRefreshJwtDto {
   @ApiProperty({
     description: 'The refresh JWT token of the user',
     type: String,
+    example: 'Your password',
   })
   refreshToken: string;
 }
