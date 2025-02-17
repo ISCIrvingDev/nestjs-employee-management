@@ -20,6 +20,9 @@ export class EmployeeRoleService {
       where: {
         active: true,
       },
+      order: {
+        id: 'DESC',
+      },
     });
 
     // Mapping the response
@@ -97,6 +100,7 @@ export class EmployeeRoleService {
       newEmployeeRoleDto,
     );
 
+    // Data validation
     if (!(oldEmployeeRole.affected && oldEmployeeRole.affected > 0)) {
       throw new BadRequestException(
         `There was no data to be updated with the ID: ${id}`,
@@ -133,6 +137,7 @@ export class EmployeeRoleService {
       newValues,
     );
 
+    // Data validation
     if (
       !(oldDeletedEmployeeRole.affected && oldDeletedEmployeeRole.affected > 0)
     ) {
