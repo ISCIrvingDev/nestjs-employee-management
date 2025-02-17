@@ -1,10 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
-  InternalServerErrorException,
   Param,
   Post,
+  Put,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -59,13 +60,9 @@ export class EmployeeController {
     type: GetEmployeeDto,
   })
   async getAllEmployees(): Promise<GetEmployeeDto[]> {
-    try {
-      const res = await this._employeeService.getAllEmployees();
+    const res = await this._employeeService.getAllEmployees();
 
-      return res;
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
+    return res;
   }
 
   @Get('getEmployeeById/:id')
@@ -81,13 +78,9 @@ export class EmployeeController {
     type: GetEmployeeDto,
   })
   async getEmployeeById(@Param('id') id: number): Promise<GetEmployeeDto> {
-    try {
-      const res = await this._employeeService.getEmployeeById(id);
+    const res = await this._employeeService.getEmployeeById(id);
 
-      return res;
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
+    return res;
   }
 
   @Post('createEmployee')
@@ -105,6 +98,7 @@ export class EmployeeController {
           maternalLastName: 'Rivas',
           rfc: 'VECJ880326XXX',
           curp: 'RACW050729MMCSHNA2',
+          entryDate: new Date(),
           contractType: 'POR PROYECTO',
           salaryType: 'POR HORA',
           workingDay: 'MATUTINO',
@@ -128,11 +122,86 @@ export class EmployeeController {
     description: 'The new employee',
     type: GetEmployeeDto,
   })
-  // @UsePipes(NewEmployeePipe) // Aqui me quede -> Agregar el Pipe y las validaciones del lado del DTO
+  // @UsePipes(NewEmployeePipe) // No se hara uso de "Pipes" ya que se agregaron validaciones del lado del DTO con "class-validator" y "class-transformer"
   async createEmployee(
     @Body() newEmployeeDto: NewEmployeeDto,
   ): Promise<GetEmployeeDto> {
     const res = await this._employeeService.createEmployee(newEmployeeDto);
+
+    return res;
+  }
+
+  @Put('updateEmployeeById/:id')
+  @ApiOperation({ summary: 'Update an employee by its ID' })
+  @ApiParam({
+    name: 'id',
+    description: 'The ID of the employee',
+    required: true,
+    example: 1,
+  })
+  @ApiBody({
+    type: NewEmployeeDto,
+    description: 'The values to update for the employee',
+    required: true,
+    examples: {
+      employeeExample: {
+        value: {
+          key: 'E0001',
+          name: 'Irving',
+          lastName: 'Salazar',
+          maternalLastName: 'Rivas',
+          rfc: 'VECJ880326XXX',
+          curp: 'RACW050729MMCSHNA2',
+          entryDate: new Date(),
+          contractType: 'POR PROYECTO',
+          salaryType: 'POR HORA',
+          workingDay: 'MATUTINO',
+          department: {
+            id: 1,
+            key: 'A0001',
+            name: 'Pharmacy',
+          } as EmployeeDepartmentDto,
+          roles: [
+            {
+              id: 1,
+              key: 'R0001',
+              name: 'Chief Technology Officer',
+            } as EmployeeRoleDto,
+          ],
+        } as NewEmployeeDto,
+      },
+    },
+  })
+  @AppOkResponse({
+    description: 'The employee with the new values',
+    type: GetEmployeeDto,
+  })
+  async updateEmployeeById(
+    @Param('id') id: number,
+    @Body() updateEmployeeValuesDto: NewEmployeeDto,
+  ): Promise<GetEmployeeDto> {
+    const res = await this._employeeService.updateEmployeeById(
+      id,
+      updateEmployeeValuesDto,
+    );
+
+    return res;
+  }
+
+  @Delete('deleteEmployeeById/:id')
+  @ApiOperation({ summary: 'Disable an employee by its ID' })
+  @ApiParam({
+    name: 'id',
+    description: 'The ID of the employee',
+    required: true,
+    example: 1,
+  })
+  @AppOkResponse({
+    description: 'The deleted employee',
+    type: GetEmployeeDto,
+  })
+  async deleteEmployeeById(@Param('id') id: number): Promise<GetEmployeeDto> {
+    const res = await this._employeeService.deleteEmployeeById(id);
 
     return res;
   }
