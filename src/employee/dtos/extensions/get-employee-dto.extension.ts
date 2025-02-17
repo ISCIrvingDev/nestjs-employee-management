@@ -2,6 +2,7 @@ import { CEmployee } from 'src/application/db/employee-management-db/entities/c-
 import { EmployeeRoleDto, GetEmployeeDto } from '../employee.dto';
 
 // Data type conversions
+// Metodos envueltos en un objeto como una entidad separada a "GetEmployeeDto"
 GetEmployeeDto.fromCEmployee = (cEmployee: CEmployee): GetEmployeeDto => {
   // Logica para la conversion
   const res = new GetEmployeeDto({
