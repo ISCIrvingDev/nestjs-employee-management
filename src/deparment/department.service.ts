@@ -27,6 +27,9 @@ export class DepartmentService {
       where: {
         active: true,
       },
+      order: {
+        id: 'DESC',
+      },
     });
 
     // Mapping the response
