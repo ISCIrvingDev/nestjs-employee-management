@@ -14,6 +14,10 @@ import { CEmployeeRole } from './c-employee-role.entity';
 
 @Entity('c_employees')
 export class CEmployee {
+  public constructor(init?: Partial<CEmployee>) {
+    Object.assign(this, init);
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 

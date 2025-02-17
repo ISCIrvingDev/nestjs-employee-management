@@ -12,6 +12,10 @@ import {
 @Unique(['active', 'name']) // Restricción de unicidad compuesta
 @Unique(['active', 'key', 'name']) // Restricción de unicidad compuesta
 export class CDepartment {
+  public constructor(init?: Partial<CDepartment>) {
+    Object.assign(this, init);
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 

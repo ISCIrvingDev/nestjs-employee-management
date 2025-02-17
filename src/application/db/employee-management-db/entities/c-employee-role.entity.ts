@@ -8,6 +8,10 @@ import {
 
 @Entity('c_employee_roles')
 export class CEmployeeRole {
+  public constructor(init?: Partial<CEmployeeRole>) {
+    Object.assign(this, init);
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
