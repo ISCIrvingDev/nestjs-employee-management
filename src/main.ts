@@ -11,6 +11,15 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:9000',
+      // 'http://13.59.220.201:3000', // staging environment
+      // 'https://client.yout-url.com', // staging environment
+    ],
+  });
+
   if (env == 'development') {
     // Swagger
     const config = new DocumentBuilder()
@@ -41,6 +50,7 @@ async function bootstrap() {
   }*/
 
   app.useGlobalPipes(new ValidationPipe()); // Habilita la validacion global de los DTOs
+  // app.useGlobalFilters(new CatchEverythingFilter()); // Habilita el uso del filter global "CatchEverythingFilter"
 
   await app.listen(port);
 
