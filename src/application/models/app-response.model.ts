@@ -17,7 +17,8 @@ export class AppResponseModel<T> {
     // type: Object,
     required: true,
   })
-  public data: T | AppErrorResponseModel;
+  // public data: T | AppErrorResponseModel;
+  public data: T; // AppErrorResponseModel es parte de T
 
   constructor(init?: Partial<AppResponseModel<T>>) {
     Object.assign(this, init);
