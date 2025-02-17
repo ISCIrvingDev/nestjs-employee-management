@@ -8,7 +8,11 @@ export class UserLoginDto {
   })
   username: string;
 
-  @ApiProperty({ description: 'The password of the user', type: String })
+  @ApiProperty({
+    description: 'The password of the user',
+    type: String,
+    example: 'Your password',
+  })
   password: string;
 }
 
